@@ -2,8 +2,9 @@
 
 An end-to-end Power BI analysis of 10,999 e-commerce electronics orders, built for the **OdumareTech Data Analytics Bootcamp**. The project turns raw order data into an interactive dashboard and a stakeholder presentation, focused on customer satisfaction and delivery performance.
 
-![Dashboard page 1](images/dashboard_page1.png)
-![Dashboard page 2](images/dashboard_page2.png)
+<img width="1800" height="1032" alt="dashboard_page1" src="https://github.com/user-attachments/assets/99c115cd-d784-4472-945c-55846b93afd5" />
+
+<img width="1800" height="1032" alt="dashboard_page2" src="https://github.com/user-attachments/assets/fd6b67f7-9e31-43a2-852d-7af7ca09ba43" />
 
 ---
 
@@ -33,45 +34,7 @@ The company also asked for **additional KPIs** discovered during analysis, beyon
 - **PowerPoint / PDF:** stakeholder presentation
 - **GitHub:** version control and documentation
 
-## Methodology
-
-### 1. Data cleaning (Power Query)
-- Imported the Excel file and set correct data types
-- Replaced `F` / `M` with `Female` / `Male`
-- Standardised warehouse block labels
-
-### 2. New columns (Power Query, Add Column > Custom Column)
-
-```
-Discount USD    = [Cost of the Product USD] * [Discount offered %] / 100
-Delivery Fee    = if [Weight in gms] <= 3000 then 5
-                  else if [Weight in gms] <= 6000 then 10 else 15
-Amount Paid     = [Cost of the Product USD] - [Discount USD] + [Delivery Fee]
-Delivery Status = if [Shipment completion promptness] = 1 then "Late" else "On Time"
-Discount Band   = if [Discount offered %] <= 10 then "0-10%"
-                  else if [Discount offered %] <= 20 then "10-20%" else ">20%"
-Weight Band     = if [Weight in gms] <= 3000 then "0-3kg"
-                  else if [Weight in gms] <= 6000 then "3-6kg" else "Above 6kg"
-```
-
-*Assumption: the delivery fee is added on top of the discounted price. Delivery fees follow the company's weight tiers: up to 3 kg = $5, above 3 to 6 kg = $10, above 6 kg = $15.*
-
-### 3. DAX measures
-
-```DAX
-Total Orders        = COUNTROWS('Customer Analytics')
-Total Revenue       = SUM('Customer Analytics'[Amount Paid])
-Total Discount      = SUM('Customer Analytics'[Discount USD])
-Total Delivery Fees = SUM('Customer Analytics'[Delivery Fee])
-Avg Rating          = AVERAGE('Customer Analytics'[Customer rating])
-Late %              = AVERAGE('Customer Analytics'[Shipment completion promptness])
-Late Orders         = CALCULATE([Total Orders], 'Customer Analytics'[Delivery Status] = "Late")
-On Time %           = 1 - [Late %]
-```
-
-*(Replace `Customer Analytics` with your table name if it differs.)*
-
-### 4. Dashboard
+### Dashboard
 - **Page 1, Overview:** KPI cards (orders, revenue, rating, late %, discounts, delivery fees), orders and revenue by warehouse block, orders by shipment mode, late % by product importance and discount band, orders by rating
 - **Page 2, Deep Dive:** orders by gender and product importance, late % by weight band, customer care calls and shipment mode, average rating by prior purchases
 - Slicers for Mode of Shipment, Product importance, Gender and Warehouse block
@@ -101,7 +64,6 @@ On Time %           = 1 - [Late %]
 
 ## Limitations
 
-- Findings are patterns, not proven causes.
 - The 100% late rate for discounts over 10% is unusually clean and should be verified against how the data was recorded.
 - Ratings do not change with lateness, so the data does not explain what drives satisfaction.
 - There are no dates, delay reasons, locations or customer IDs, so trends and repeat customers cannot be analysed.
@@ -109,42 +71,3 @@ On Time %           = 1 - [Late %]
 - "Late" is yes or no, with no measure of how late.
 - The dataset is a public sample and should be validated against full operational data.
 
-## Repository Structure
-
-```
-.
-├── README.md
-├── data/
-│   └── PBI_Project_-_Customer_Satisfaction.xlsx
-├── dashboard/
-│   ├── OdumareTech_Capstone_Project.pbix
-│   └── OdumareTech_Capstone_Project.pdf
-├── presentation/
-│   └── Customer_Satisfaction_Analysis.pptx   (and/or .pdf)
-├── docs/
-│   └── PBI_Project_-_Customer_Satisfaction.pdf   (project brief)
-└── images/
-    ├── dashboard_page1.png
-    └── dashboard_page2.png
-```
-
-## How to Use
-
-1. Download `dashboard/OdumareTech_Capstone_Project.pbix`.
-2. Open it in **Power BI Desktop** (free for Windows).
-3. Use the slicers to filter by shipment mode, product importance, gender and warehouse block.
-
-## Links
-
-- **Portfolio:** [add link]
-- **LinkedIn post:** [add link]
-
-## Author
-
-**[Your Name]**
-[LinkedIn profile link] | [Email]
-
-## Acknowledgements
-
-- **OdumareTech** for the project brief and bootcamp
-- **Prachi Gopalani** for the original dataset on Kaggle
