@@ -1,4 +1,4 @@
-# Customer Satisfaction Analysis | Power BI Capstone Project
+# Customer Satisfaction Analysis
 
 An end-to-end Power BI analysis of 10,999 e-commerce electronics orders, built for the **OdumareTech Data Analytics Bootcamp**. The project turns raw order data into an interactive dashboard and a stakeholder presentation, focused on customer satisfaction and delivery performance.
 
